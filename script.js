@@ -171,7 +171,58 @@
         
       }
     }
+    // Social Media Stats Loader
+document.addEventListener("DOMContentLoaded", async () => {
+  const INSTAGRAM_USERNAME = "losers_content";
+  const YOUTUBE_CHANNEL_ID = "UCQzAAFSyHPPqHu7bZmPmgYQ";
+  const FACEBOOK_PAGE_ID = "61574809151807";
+
+  function formatNumber(num) {
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+    if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+    return num;
+  }
+
+  // ✅ Instagram follower count
+  try {
+    const res = await fetch(`https://api.loserscontent.vercel.app/insta?user=${INSTAGRAM_USERNAME}`);
+    const data = await res.json();
+    if (data.followers) {
+      document.getElementById("insta-count").textContent = formatNumber(data.followers);
+    }
+  } catch (err) {
+    console.warn("Instagram fetch failed:", err);
+  }
+
+  // ❌ Temporarily disable YouTube & Facebook (no valid keys yet)
+  /*
+  try {
+    const YT_KEY = "YOUR_REAL_YOUTUBE_API_KEY";
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YOUTUBE_CHANNEL_ID}&key=${YT_KEY}`);
+    const data = await res.json();
+    const subs = data.items?.[0]?.statistics?.subscriberCount;
+    if (subs) {
+      document.getElementById("yt-count").textContent = formatNumber(subs);
+    }
+  } catch (err) {
+    console.warn("YouTube fetch failed:", err);
+  }
+
+  try {
+    const FB_TOKEN = "YOUR_REAL_FACEBOOK_ACCESS_TOKEN";
+    const res = await fetch(`https://graph.facebook.com/${FACEBOOK_PAGE_ID}?fields=followers_count&access_token=${FB_TOKEN}`);
+    const data = await res.json();
+    if (data.followers_count) {
+      document.getElementById("fb-count").textContent = formatNumber(data.followers_count);
+    }
+  } catch (err) {
+    console.warn("Facebook fetch failed:", err);
+  }
+  */
+});
+
     
   });
 })();
+
 
