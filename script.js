@@ -220,18 +220,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   */
 });
-fetch("/api/google-script", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ name: "Deepak" }) // replace with your form data
+fetch('https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec', {
+  method: 'POST',
+  body: JSON.stringify(formData)
 })
-  .then((res) => res.json())
-  .then((data) => console.log("✅ Got response:", data))
-  .catch((err) => console.error("❌ Error:", err));
+  .then(async (res) => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return { message: text };
+    }
+  })
+  .then((data) => {
+    console.log('✅ Success:', data);
+    alert('Form submitted successfully!');
+  })
+  .catch((err) => {
+    console.error('❌ Error:', err);
+    alert('Something went wrong. Please try again later.');
+  });
+
 
     
   });
 })();
+
 
 
 
