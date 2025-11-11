@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/google-script.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/google-script",
+      "dest": "/api/google-script.js"
+    }
+  ]
+}
