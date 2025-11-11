@@ -220,9 +220,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   */
 });
+fetch("/api/google-script", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Deepak" }) // replace with your form data
+})
+  .then((res) => res.json())
+  .then((data) => console.log("✅ Got response:", data))
+  .catch((err) => console.error("❌ Error:", err));
 
     
   });
 })();
+
 
 
