@@ -224,6 +224,7 @@ fetch('https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uL
   method: 'POST',
   body: JSON.stringify(formData)
 })
+
   .then(async (res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
@@ -246,6 +247,7 @@ fetch('https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uL
     
   });
 })();
+
 
 
 
