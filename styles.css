@@ -112,7 +112,41 @@ body {
 .nav-toggle { display: none; background: transparent; border: 0; padding: .5rem; }
 .nav-toggle-bar { display: block; width: 24px; height: 2px; background: var(--color-text); margin: 5px 0; }
 
-.gold-line { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--color-gold), transparent); }
+/* Gold line — glowing cinematic effect (replace existing .gold-line) */
+.gold-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+/* animated moving glow */
+.gold-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: var(--color-gold);
+  filter: blur(6px);
+  opacity: 0.85;
+  transform: translateZ(0);
+  animation: goldGlow 2.8s linear infinite;
+}
+
+@keyframes goldGlow {
+  0%   { left: -50%; }
+  50%  { left: 25%; opacity: 1; }
+  100% { left: 100%; opacity: 0.6; }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .gold-line::after { animation: none; opacity: 0.8; filter: none; }
+}
+
 
 /* Hero */
 .hero {
