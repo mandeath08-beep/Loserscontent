@@ -553,6 +553,36 @@ body.no-scroll { overflow: hidden; touch-action: none; }
   from { opacity: 0.4; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1.05); }
 }
+/* === Gold Underline Animation for Navbar === */
+.nav-links a {
+  position: relative;
+  padding: .625rem .9rem;
+  transition: color .25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-gold);
+}
+
+/* Gold underline */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 2px;
+  width: 0%;
+  background: var(--color-gold);
+  transition: all .3s ease;
+  transform: translateX(-50%);
+}
+
+/* Hover animation */
+.nav-links a:hover::after {
+  width: 60%;
+  box-shadow: 0 0 8px var(--color-gold);
+}
+
 
 
 
