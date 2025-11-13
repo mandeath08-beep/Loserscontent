@@ -322,6 +322,16 @@ document.querySelectorAll('.social-count, .stat-number').forEach(el => {
   observer.observe(el);
 });
 </script>
+    <script>
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+
+    setTimeout(() => {
+        loader.classList.add("hidden");
+    }, 800); // delay to show animation
+});
+</script>
+
 </body>
 </html>
 </body>
