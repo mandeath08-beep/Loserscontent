@@ -77,41 +77,42 @@
     contactDetails.classList.remove('hidden');
     contactDetails.setAttribute('aria-hidden', 'false');
   }
-
-  if (form) {
+if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // Captcha check
     const answerVal = Number(captchaAnswer.value);
     if (answerVal !== sum) {
-      alert("Incorrect answer. Try again.");
+      alert("Incorrect answer.");
       generateCaptcha();
       return;
     }
 
-    // Read input fields
+    // Values
     const name = encodeURIComponent(document.getElementById("name").value);
     const email = encodeURIComponent(document.getElementById("email").value);
     const phone = encodeURIComponent(document.getElementById("phone").value);
 
-    // SEND GET REQUEST TO GOOGLE SCRIPT
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
-    const url = `${scriptURL}?name=${name}&email=${email}&phone=${phone}`;
+    // GOOGLE SCRIPT URL (GET)
+    const script = "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
+
+    const url = `${script}?name=${name}&email=${email}&phone=${phone}`;
 
     try {
-      const response = await fetch(url);
-      const result = await response.json();
+      const res = await fetch(url, { method: "GET" });
+      const data = await res.json();
 
-      if (result.result === "success") {
-        revealContacts();  
+      if (data.result === "success") {
+        revealContacts();
         contactDetails.classList.add("is-visible");
         form.reset();
       } else {
-        alert("Error saving data.");
+        alert("Failed. Try again.");
       }
-    } catch (error) {
-      alert("Network error. Try again.");
+    } catch (err) {
+      console.error(err);
+      alert("Network error.");
     }
   });
 }
