@@ -188,9 +188,7 @@ if (form) {
             console.warn("Facebook fetch failed:", err);
           }
         });
-        
-      }
-    }
+
     // Smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener("click", function (e) {
