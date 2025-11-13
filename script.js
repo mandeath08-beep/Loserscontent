@@ -79,24 +79,43 @@
   }
 
   if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const answerVal = Number((captchaAnswer && captchaAnswer.value) || NaN);
-      if (Number.isNaN(answerVal)) {
-        alert('Please enter the captcha answer.');
-        return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Captcha check
+    const answerVal = Number(captchaAnswer.value);
+    if (answerVal !== sum) {
+      alert("Incorrect answer. Try again.");
+      generateCaptcha();
+      return;
+    }
+
+    // Read input fields
+    const name = encodeURIComponent(document.getElementById("name").value);
+    const email = encodeURIComponent(document.getElementById("email").value);
+    const phone = encodeURIComponent(document.getElementById("phone").value);
+
+    // SEND GET REQUEST TO GOOGLE SCRIPT
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
+    const url = `${scriptURL}?name=${name}&email=${email}&phone=${phone}`;
+
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+
+      if (result.result === "success") {
+        revealContacts();  
+        contactDetails.classList.add("is-visible");
+        form.reset();
+      } else {
+        alert("Error saving data.");
       }
-      if (answerVal !== sum) {
-        alert('Incorrect answer. Please try again.');
-        generateCaptcha();
-        return;
-      }
-      // Passed captcha — reveal contacts
-      revealContacts();
-      // Optional subtle effect
-      contactDetails && contactDetails.classList.add('is-visible');
-    });
-  }
+    } catch (error) {
+      alert("Network error. Try again.");
+    }
+  });
+}
+
 
   // Copy buttons
   doc.addEventListener('click', async (e) => {
