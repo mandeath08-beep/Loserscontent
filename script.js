@@ -55,7 +55,7 @@
   setTimeout(refreshInstagramEmbeds, 800);
 
   // Contact form + CAPTCHA
-  const form = doc.getElementById('contact-form');
+  const form = doc.getElementById('contactform');
   const captchaLabel = doc.getElementById('captcha-label');
   const captchaAnswer = doc.getElementById('captcha-answer');
   const captchaRefresh = doc.getElementById('captcha-refresh');
