@@ -95,7 +95,7 @@ if (form) {
     const phone = encodeURIComponent(document.getElementById("phone").value);
 
     // GOOGLE SCRIPT URL (GET)
-    const script = "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
+    const script = "https://script.google.com/macros/s/AKfycbwMIkx87gTMWSu8Ahsr3lePvVf634l_oDt2yuR3uTRJfGNL9NQhbbgcbBcqhYlMfRuN/exec";
 
     const url = `${script}?name=${name}&email=${email}&phone=${phone}`;
 
