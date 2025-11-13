@@ -187,7 +187,7 @@
     <section class="contact">
         <h2>Contact Us</h2>
       
-        <form id="contactForm">
+       <form id="contactForm">
           <label>Name</label>
           <input type="text" id="name" required />
       
@@ -213,57 +213,43 @@
       </section>
       
       <!-- Paste this JS just before closing </body> -->
-      <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
+<script>
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycbzhi65mzn7Y23aDPmiHLQQrwqDSsxV_uLg8TekOFeuoEFr0IrEDXzmMEI8MCvPPEpwA/exec";
 
-  const form = document.getElementById("contactForm");
-  
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-  
-    const captcha = document.getElementById("captcha").value.trim();
-    if (captcha !== "11") {
-      alert("❌ Wrong answer. Try again!");
-      return;
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const captcha = document.getElementById("captcha").value.trim();
+  if (captcha !== "11") {
+    alert("❌ Wrong answer. Try again!");
+    return;
+  }
+
+  const name = encodeURIComponent(document.getElementById("name").value);
+  const email = encodeURIComponent(document.getElementById("email").value);
+  const phone = encodeURIComponent(document.getElementById("phone").value);
+
+  // 👉 IMPORTANT: ONLY GET REQUEST (NO POST)
+  const url = `${scriptURL}?name=${name}&email=${email}&phone=${phone}`;
+
+  try {
+    const response = await fetch(url); // GET ONLY
+    const result = await response.json();
+
+    if (result.result === "success") {
+      document.getElementById("contactDetails").style.display = "block";
+      form.reset();
+    } else {
+      alert("❌ Error saving data.");
     }
-  
-    const data = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value
-    };
-  
-    try {
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-  
-      const text = await response.text(); // 👈 raw response
-      console.log("Raw response:", text);
-  
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch {
-        alert("⚠️ Unexpected response: " + text);
-        return;
-      }
-  
-      if (result.result === "success") {
-        alert("✅ Data saved successfully!");
-        document.getElementById("contactDetails").style.display = "block";
-        form.reset();
-      } else {
-        alert("❌ Error: " + (result.message || "Unknown issue"));
-      }
-  
-    } catch (error) {
-      alert("⚠️ Error saving your data. Please try again.");
-      console.error(error);
-    }
-  });
+  } catch (error) {
+    console.log(error);
+    alert("⚠️ Network error.");
+  }
+});
 </script>
 
         </script>
