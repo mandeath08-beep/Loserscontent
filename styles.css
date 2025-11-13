@@ -556,6 +556,9 @@ body.no-scroll { overflow: hidden; touch-action: none; }
   from { opacity: 0.4; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1.05); }
 }
+.gold-line {
+    background: red !important;
+}
 
 
 
