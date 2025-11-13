@@ -5,9 +5,6 @@
   --color-bg: #0a0a0a;
   --color-gold: #d4af37;
 }
-html { 
-  scroll-behavior: smooth; 
-}
 /* Scroll Progress Bar */
 #progress-bar {
   position: fixed;
